@@ -1,6 +1,4 @@
-/* ══════════════════════════════════════
-   DESIGN TOKENS
-══════════════════════════════════════ */
+/* Design Tokens */
 :root {
   --bg:          #07070f;
   --surface:     #0d0d1a;
@@ -48,9 +46,7 @@
   --shadow-lg:   0 16px 48px rgba(0,0,0,0.13);
 }
 
-/* ══════════════════════════════════════
-   RESET & BASE
-══════════════════════════════════════ */
+/* Rest and Base */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { height: 100%; }
 body {
@@ -66,9 +62,7 @@ body {
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 4px; }
 
-/* ══════════════════════════════════════
-   AUTH SCREEN
-══════════════════════════════════════ */
+/* Auth */
 #auth-screen {
   min-height: 100vh;
   display: flex;
@@ -148,9 +142,7 @@ body {
   margin-bottom: 32px; line-height: 1.5;
 }
 
-/* ══════════════════════════════════════
-   FORM ELEMENTS
-══════════════════════════════════════ */
+/* Form elements */
 .field { margin-bottom: 16px; }
 .field label {
   display: block;
@@ -195,9 +187,7 @@ body {
 .toggle-pw:hover { color: var(--text-1); }
 .has-toggle { padding-right: 44px; }
 
-/* ══════════════════════════════════════
-   BUTTONS
-══════════════════════════════════════ */
+/* Buttons */
 .btn {
   display: inline-flex; align-items: center; gap: 8px;
   padding: 11px 20px;
@@ -244,9 +234,7 @@ body {
 }
 .btn-icon:hover { color: var(--text-1); background: var(--surface2); }
 
-/* ══════════════════════════════════════
-   ALERTS
-══════════════════════════════════════ */
+/* alerts */
 .error-msg {
   background: var(--red-dim);
   border: 1px solid rgba(248,113,113,0.25);
@@ -267,9 +255,7 @@ body {
 
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-/* ══════════════════════════════════════
-   MAIN APP
-══════════════════════════════════════ */
+/*app*/
 #app { display: none; height: 100vh; overflow: hidden; }
 #app.visible { display: flex; }
 
@@ -376,9 +362,7 @@ body {
 
 .content-area { flex: 1; overflow-y: auto; padding: 22px; }
 
-/* ══════════════════════════════════════
-   PASSWORD CARDS
-══════════════════════════════════════ */
+/* pass cards */
 .items-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
@@ -431,9 +415,7 @@ body {
 .pw-dots { letter-spacing: 3px; font-size: 7px; }
 .item-card-date { font-size: 11px; color: var(--text-3); margin-top: 8px; }
 
-/* ══════════════════════════════════════
-   NOTE CARDS
-══════════════════════════════════════ */
+/* Note cards */
 .note-card {
   background: var(--surface);
   border: 1px solid var(--border);
@@ -453,9 +435,7 @@ body {
   margin-top: 12px; font-size: 11px; color: var(--text-3);
 }
 
-/* ══════════════════════════════════════
-   FILE CARDS
-══════════════════════════════════════ */
+/* file cards */
 .file-list { display: flex; flex-direction: column; gap: 10px; }
 .file-card {
   background: var(--surface);
@@ -488,9 +468,7 @@ body {
 .drop-zone-text { font-size: 14px; color: var(--text-2); }
 .drop-zone-sub { font-size: 12px; color: var(--text-3); margin-top: 5px; }
 
-/* ══════════════════════════════════════
-   MODAL
-══════════════════════════════════════ */
+/* modal */
 .modal-backdrop {
   position: fixed; inset: 0;
   background: rgba(0,0,0,0.72);
@@ -542,9 +520,7 @@ body {
 .detail-value.mono { font-family: 'JetBrains Mono', monospace; font-size: 12.5px; }
 .detail-value-text { flex: 1; }
 
-/* ══════════════════════════════════════
-   PASSWORD STRENGTH
-══════════════════════════════════════ */
+/* pw strength */
 .pw-strength { margin-top: 8px; display: flex; align-items: center; gap: 8px; }
 .pw-strength-bars { display: flex; gap: 4px; flex: 1; }
 .pw-strength-bar { height: 3px; flex: 1; border-radius: 2px; background: var(--border); transition: background 0.3s; }
@@ -554,9 +530,7 @@ body {
 .pw-strength-bar.filled.strong { background: var(--green); }
 .pw-strength-label { font-size: 11px; color: var(--text-3); min-width: 44px; text-align: right; }
 
-/* ══════════════════════════════════════
-   GENERATOR
-══════════════════════════════════════ */
+/* generator */
 .gen-output {
   background: var(--surface2); border: 1px solid var(--border);
   border-radius: var(--radius-sm); padding: 13px 15px;
@@ -579,17 +553,13 @@ body {
 }
 .gen-check input[type="checkbox"] { accent-color: var(--accent); width: 14px; height: 14px; cursor: pointer; }
 
-/* ══════════════════════════════════════
-   EMPTY STATE
-══════════════════════════════════════ */
+/* empty */
 .empty-state { text-align: center; padding: 72px 24px; color: var(--text-3); }
 .empty-state-icon { font-size: 44px; margin-bottom: 14px; opacity: 0.45; }
 .empty-state-text { font-size: 16px; margin-bottom: 7px; color: var(--text-2); }
 .empty-state-sub { font-size: 13.5px; }
 
-/* ══════════════════════════════════════
-   LOCK ANIMATION
-══════════════════════════════════════ */
+/* lock */
 .lock-anim {
   width: 62px; height: 62px; border-radius: 18px;
   background: var(--accent-dim); border: 1px solid var(--border2);
@@ -602,9 +572,7 @@ body {
   50%       { box-shadow: 0 0 0 14px rgba(0,0,0,0); }
 }
 
-/* ══════════════════════════════════════
-   TOAST
-══════════════════════════════════════ */
+/* toast */
 #toast-container {
   position: fixed; bottom: 24px; right: 24px;
   z-index: 999; display: flex; flex-direction: column; gap: 8px;
@@ -626,9 +594,7 @@ body {
   to   { opacity: 1; transform: translateX(0); }
 }
 
-/* ══════════════════════════════════════
-   MISC
-══════════════════════════════════════ */
+/* misc */
 .divider { height: 1px; background: var(--border); margin: 18px 0; }
 @media (max-width: 768px) {
   .sidebar { display: none; }
