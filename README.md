@@ -1,6 +1,6 @@
 # 🔐 SecureVault
 
-A personal password manager with **client-side AES-256-GCM encryption** backed by Firebase. Your master password and encryption key never leave your device — only ciphertext is stored in the cloud.
+A personal password manager with **client-side AES-256-GCM encryption** backed by Firebase. Your master password and encryption key never leave your device, only ciphertext is stored in the cloud.
 
 ---
 
