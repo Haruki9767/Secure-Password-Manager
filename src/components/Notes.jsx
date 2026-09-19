@@ -134,10 +134,14 @@ export default function Notes({ encryptionKey, currentUser, notes, setNotes, sea
 
   async function handleDelete(id) {
     if (!confirm('Delete this note? This cannot be undone.')) return
-    await remove(ref(db, `users/${currentUser.uid}/notes/${id}`))
-    setNotes(prev => { const n = { ...prev }; delete n[id]; return n })
-    setModal(null)
-    toast('Note deleted', 'info')
+    try {
+      await remove(ref(db, `users/${currentUser.uid}/notes/${id}`))
+      setNotes(prev => { const n = { ...prev }; delete n[id]; return n })
+      setModal(null)
+      toast('Note deleted', 'info')
+    } catch {
+      toast('Could not delete note. Check your connection and try again.', 'error', 4000)
+    }
   }
 
   return (

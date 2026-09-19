@@ -52,6 +52,10 @@ export default function Auth({ step, currentUser, locked, onMasterUnlock, onRelo
     }
   }, [step, currentUser])
 
+  useEffect(() => {
+    if (step === 'login') setLoginLoading(false)
+  }, [step])
+
   async function handleLogin(e) {
     e?.preventDefault()
     if (!email || !loginPw) { setLoginError('Please enter your email and password.'); return }
@@ -64,6 +68,7 @@ export default function Auth({ step, currentUser, locked, onMasterUnlock, onRelo
       if (err.code === 'auth/too-many-requests')      msg = 'Too many attempts. Account temporarily locked.'
       if (err.code === 'auth/network-request-failed') msg = 'Network error. Check your connection.'
       setLoginError(msg)
+    } finally {
       setLoginLoading(false)
     }
   }

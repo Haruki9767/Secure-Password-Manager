@@ -97,7 +97,8 @@ export default function Files({ encryptionKey, currentUser, files, setFiles, sea
       const a    = document.createElement('a')
       a.href = url; a.download = meta.name
       document.body.appendChild(a); a.click()
-      document.body.removeChild(a); URL.revokeObjectURL(url)
+      document.body.removeChild(a)
+      setTimeout(() => URL.revokeObjectURL(url), 1000)
       toast('File downloaded!', 'success')
     } catch {
       toast('Failed to decrypt file', 'error')
@@ -106,9 +107,13 @@ export default function Files({ encryptionKey, currentUser, files, setFiles, sea
 
   async function deleteFile(id, name) {
     if (!confirm(`Delete "${name}"? This cannot be undone.`)) return
-    await remove(ref(db, `users/${currentUser.uid}/files/${id}`))
-    setFiles(prev => { const n = { ...prev }; delete n[id]; return n })
-    toast('File deleted', 'info')
+    try {
+      await remove(ref(db, `users/${currentUser.uid}/files/${id}`))
+      setFiles(prev => { const n = { ...prev }; delete n[id]; return n })
+      toast('File deleted', 'info')
+    } catch {
+      toast('Could not delete file. Check your connection and try again.', 'error', 4000)
+    }
   }
 
   function onDrop(e) {

@@ -55,6 +55,20 @@ Master Password + Random Salt
 - **File size limit** — files are capped at 2 MB and encrypted before upload; raw bytes never touch Firebase in plaintext.
 - **No server-side code** — this is a pure client-side app. There is no backend to compromise.
 
+### Realtime Database rules
+
+The repository includes restrictive rules in [`database.rules.json`](database.rules.json). They allow a signed-in user to read and write only their own `users/{uid}` record, reject unauthenticated access, and validate the encrypted payload shape and size. Deploy them with:
+
+```bash
+firebase deploy --only database
+```
+
+Do not use Firebase's temporary test-mode rules in production. The rules protect access to ciphertext; the master password and encryption key remain client-side.
+
+### Interface design
+
+The interface uses a flat ink-and-paper palette with solid surfaces, restrained borders, and no gradients. Dark mode is the default, while light mode uses warm paper tones for lower-glare reading and editing.
+
 ---
 
 ## Contributing

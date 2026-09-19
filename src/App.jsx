@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { onAuthStateChanged, signOut } from 'firebase/auth'
-import { ref, get } from 'firebase/database'
+import { ref, get, set } from 'firebase/database'
 import { auth, db } from './firebase.js'
 import { deriveKey, encrypt, decrypt, toB64 } from './crypto.js'
 import Auth from './components/Auth.jsx'
@@ -16,6 +16,7 @@ export default function App() {
   const [passwords, setPasswords]         = useState({})
   const [notes, setNotes]                 = useState({})
   const [files, setFiles]                 = useState({})
+  const [loadError, setLoadError]         = useState('')
   const [theme, setTheme]                 = useState(() => localStorage.getItem('vault-theme') || 'dark')
   const lockTimerRef = useRef(null)
 
@@ -66,6 +67,7 @@ export default function App() {
   }, [clearLockTimer])
 
   async function loadData(user) {
+    setLoadError('')
     try {
       const snap = await get(ref(db, `users/${user.uid}`))
       const d    = snap.val() || {}
@@ -73,7 +75,7 @@ export default function App() {
       setNotes(d.notes || {})
       setFiles(d.files || {})
     } catch {
-      // will surface as empty state
+      setLoadError('Your vault could not be loaded. Check your connection and try again.')
     }
   }
 
@@ -86,7 +88,6 @@ export default function App() {
       const saltB64 = toB64(salt)
       const key     = await deriveKey(mp, salt)
       const verify  = await encrypt(key, 'VAULT_VERIFIED_v1')
-      const { set } = await import('firebase/database')
       await set(ref(db, `users/${currentUser.uid}/meta`), { salt: saltB64, verify })
       setEncryptionKey(key)
       setLocked(false)
@@ -117,9 +118,10 @@ export default function App() {
   async function handleSignOut() {
     clearLockTimer()
     setEncryptionKey(null)
-    setPasswords({})
-    setNotes({})
-    setFiles({})
+      setPasswords({})
+      setNotes({})
+      setFiles({})
+      setLoadError('')
     await signOut(auth)
   }
 
@@ -146,6 +148,11 @@ export default function App() {
           onRelock={handleRelock}
           onSignOut={handleSignOut}
         />
+      )}
+      {isInApp && loadError && (
+        <div className="app-alert" role="alert">
+          <strong>Vault unavailable.</strong> {loadError}
+        </div>
       )}
       {isInApp && (
         <Vault

@@ -68,6 +68,7 @@ function PwDetailModal({ entry, onEdit, onDelete, onClose }) {
 function DetailField({ field: f }) {
   const [shown, setShown] = useState(false)
   function copy(text) {
+    if (!navigator.clipboard?.writeText) return
     navigator.clipboard.writeText(text).catch(() => {})
   }
   return (
@@ -209,14 +210,22 @@ export default function Passwords({ encryptionKey, currentUser, passwords, setPa
 
   async function handleDelete(id) {
     if (!confirm('Delete this password entry? This cannot be undone.')) return
-    await remove(ref(db, `users/${currentUser.uid}/passwords/${id}`))
-    setPasswords(prev => { const n = { ...prev }; delete n[id]; return n })
-    setModal(null)
-    toast('Password deleted', 'info')
+    try {
+      await remove(ref(db, `users/${currentUser.uid}/passwords/${id}`))
+      setPasswords(prev => { const n = { ...prev }; delete n[id]; return n })
+      setModal(null)
+      toast('Password deleted', 'info')
+    } catch {
+      toast('Could not delete password. Check your connection and try again.', 'error', 4000)
+    }
   }
 
   function copy(text, label = 'Copied!') {
-    navigator.clipboard.writeText(text).then(() => toast(label, 'success'))
+    if (!navigator.clipboard?.writeText) {
+      toast('Clipboard access is unavailable in this browser.', 'error')
+      return
+    }
+    navigator.clipboard.writeText(text).then(() => toast(label, 'success')).catch(() => toast('Could not copy to clipboard.', 'error'))
   }
 
   return (

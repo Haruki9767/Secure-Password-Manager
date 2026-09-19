@@ -1,0 +1,30 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "users": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        ".write": "auth != null && auth.uid === $uid",
+        "meta": {
+          ".validate": "newData.hasChildren(['salt', 'verify']) && newData.child('salt').isString() && newData.child('verify').isString() && newData.child('salt').val().length <= 128 && newData.child('verify').val().length <= 4096"
+        },
+        "passwords": {
+          "$id": {
+            ".validate": "newData.isString() && newData.val().length <= 4096"
+          }
+        },
+        "notes": {
+          "$id": {
+            ".validate": "newData.isString() && newData.val().length <= 262144"
+          }
+        },
+        "files": {
+          "$id": {
+            ".validate": "newData.hasChildren(['meta', 'data']) && newData.child('meta').isString() && newData.child('data').isString() && newData.child('meta').val().length <= 4096 && newData.child('data').val().length <= 4194304"
+          }
+        }
+      }
+    }
+  }
+}

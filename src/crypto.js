@@ -118,7 +118,7 @@ export function genPassword(len = 20, up = true, lo = true, num = true, sym = tr
   const sets = []
   if (up)  sets.push('ABCDEFGHJKLMNPQRSTUVWXYZ')
   if (lo)  sets.push('abcdefghjkmnpqrstuvwxyz')
-  if (num) sets.push('2345678923456789')
+  if (num) sets.push('0123456789')
   if (sym) sets.push('!@#$%^&*()_+-=[]{}|;:,.?')
   if (!sets.length) sets.push('abcdefghijklmnopqrstuvwxyz')
   const pool = sets.join('')

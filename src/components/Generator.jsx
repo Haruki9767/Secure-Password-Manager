@@ -31,7 +31,7 @@ export default function Generator({ onClose }) {
   useEffect(() => { generate() }, []) // eslint-disable-line
 
   function copy() {
-    if (password) navigator.clipboard.writeText(password).catch(() => {})
+    if (password && navigator.clipboard?.writeText) navigator.clipboard.writeText(password).catch(() => {})
   }
 
   return (
