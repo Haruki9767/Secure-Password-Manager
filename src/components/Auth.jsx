@@ -115,12 +115,13 @@ export default function Auth({ step, currentUser, locked, onMasterUnlock, onRelo
         <div id="lock-screen-inner" className="auth-card">
           <div className="lock-anim">🔒</div>
           <h1 className="auth-title" style={{ textAlign: 'center' }}>Vault Locked</h1>
-          <p className="auth-subtitle" style={{ textAlign: 'center' }}>Locked after inactivity. Re-enter your master password.</p>
+            <p className="auth-subtitle" style={{ textAlign: 'center' }}>Locked after inactivity. Re-enter your master password.</p>
           <form onSubmit={handleRelockSubmit}>
             <div className="field">
-              <label>Master Password</label>
+              <label htmlFor="relock-password">Master Password</label>
               <div className="field-wrap">
                 <input
+                  id="relock-password"
                   type={showRelockPw ? 'text' : 'password'}
                   className="mono has-toggle"
                   placeholder="Master password"
@@ -130,14 +131,14 @@ export default function Auth({ step, currentUser, locked, onMasterUnlock, onRelo
                   autoFocus
                   disabled={isLockedOut || relockLoading}
                 />
-                <button type="button" className="toggle-pw" onClick={() => setShowRelockPw(v => !v)}>
+                <button type="button" className="toggle-pw" aria-label={showRelockPw ? 'Hide master password' : 'Show master password'} onClick={() => setShowRelockPw(v => !v)}>
                   {showRelockPw ? '🙈' : '👁'}
                 </button>
               </div>
             </div>
-            {relockError && <div className="error-msg show">{relockError}</div>}
+            {relockError && <div className="error-msg show" role="alert">{relockError}</div>}
             {isLockedOut && relockCountdown > 0 && (
-              <div className="error-msg show">Input locked — try again in {relockCountdown}s</div>
+              <div className="error-msg show" role="alert">Input locked — try again in {relockCountdown}s</div>
             )}
             <br />
             <button type="submit" className="btn btn-primary" disabled={isLockedOut || relockLoading}>
@@ -166,8 +167,9 @@ export default function Auth({ step, currentUser, locked, onMasterUnlock, onRelo
             <p className="auth-subtitle">Access is restricted. Sign in to continue.</p>
             <form onSubmit={handleLogin}>
               <div className="field">
-                <label>Email address</label>
+                <label htmlFor="login-email">Email address</label>
                 <input
+                  id="login-email"
                   type="email"
                   placeholder="you@example.com"
                   autoComplete="email"
@@ -176,9 +178,10 @@ export default function Auth({ step, currentUser, locked, onMasterUnlock, onRelo
                 />
               </div>
               <div className="field">
-                <label>Password</label>
+                <label htmlFor="login-password">Password</label>
                 <div className="field-wrap">
                   <input
+                    id="login-password"
                     type={showLoginPw ? 'text' : 'password'}
                     placeholder="••••••••••••"
                     autoComplete="current-password"
@@ -186,12 +189,12 @@ export default function Auth({ step, currentUser, locked, onMasterUnlock, onRelo
                     value={loginPw}
                     onChange={e => setLoginPw(e.target.value)}
                   />
-                  <button type="button" className="toggle-pw" onClick={() => setShowLoginPw(v => !v)}>
+                  <button type="button" className="toggle-pw" aria-label={showLoginPw ? 'Hide password' : 'Show password'} onClick={() => setShowLoginPw(v => !v)}>
                     {showLoginPw ? '🙈' : '👁'}
                   </button>
                 </div>
               </div>
-              {loginError && <div className="error-msg show">{loginError}</div>}
+              {loginError && <div className="error-msg show" role="alert">{loginError}</div>}
               <br />
               <button type="submit" className="btn btn-primary" disabled={loginLoading}>
                 {loginLoading ? 'Signing in…' : 'Sign In'}
@@ -209,9 +212,10 @@ export default function Auth({ step, currentUser, locked, onMasterUnlock, onRelo
             </p>
             <form onSubmit={handleMaster}>
               <div className="field">
-                <label>Master Password</label>
+                <label htmlFor="master-password">Master Password</label>
                 <div className="field-wrap">
                   <input
+                    id="master-password"
                     type={showMasterPw ? 'text' : 'password'}
                     className="mono has-toggle"
                     placeholder="Master password"
@@ -220,12 +224,12 @@ export default function Auth({ step, currentUser, locked, onMasterUnlock, onRelo
                     onChange={e => setMasterPw(e.target.value)}
                     autoFocus
                   />
-                  <button type="button" className="toggle-pw" onClick={() => setShowMasterPw(v => !v)}>
+                  <button type="button" className="toggle-pw" aria-label={showMasterPw ? 'Hide master password' : 'Show master password'} onClick={() => setShowMasterPw(v => !v)}>
                     {showMasterPw ? '🙈' : '👁'}
                   </button>
                 </div>
               </div>
-              {masterError && <div className="error-msg show">{masterError}</div>}
+              {masterError && <div className="error-msg show" role="alert">{masterError}</div>}
               {isFirstTime && (
                 <div className="info-msg">
                   🎉 First-time setup — choose a strong master password. It encrypts everything and{' '}
